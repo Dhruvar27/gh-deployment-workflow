@@ -1,0 +1,26 @@
+{{ define "main" }}
+{{ if eq .Kind "home" }}
+<div class="post">
+    <h2>Welcome to My DevOps Learning Journey</h2>
+    <p>This site documents my progress learning cloud engineering and DevOps practices. I'm working through a comprehensive 13-week learning plan covering Linux, Python, cloud platforms, and automation tools.</p>
+</div>
+{{ else }}
+<h2>{{ .Title }}</h2>
+{{ end }}
+
+{{ if .Content }}
+<div class="post">
+{{ .Content }}
+</div>
+{{ end }}
+
+{{ range .Pages }}
+<div class="post">
+    <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+    <div class="post-meta">Published on {{ .Date.Format "January 2, 2006" }}</div>
+    {{ if .Summary }}
+    <div class="summary">{{ .Summary }}</div>
+    {{ end }}
+</div>
+{{ end }}
+{{ end }}

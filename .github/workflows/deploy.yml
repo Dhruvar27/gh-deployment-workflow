@@ -1,12 +1,17 @@
-name: Deploy to GitHub Pages
+name: Deploy Hugo Site to GitHub Pages
 
-# Trigger the workflow only when index.html is changed in main branch
+# Trigger on pushes to main branch for content changes
 on:
   push:
     branches: [ main ]
-    paths: [ 'index.html' ]
+    paths: 
+      - 'content/**'
+      - 'layouts/**'
+      - 'static/**'
+      - 'config.toml'
+      - '.github/workflows/deploy.yml'
 
-# Allow manual trigger from Actions tab
+  # Allow manual trigger
   workflow_dispatch:
 
 # Set permissions for GitHub Pages deployment
@@ -28,13 +33,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Build Hugo site
+        run: hugo --minify
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: './public'
 
   # Deployment job
   deploy:

@@ -1,0 +1,7 @@
+baseURL = 'https://dhruvar27.github.io/gh-deployment-workflow/'
+languageCode = 'en-us'
+title = 'My DevOps Learning Journey'
+
+[params]
+  author = 'Dhruv'
+  description = 'A blog documenting my cloud engineering learning path'
